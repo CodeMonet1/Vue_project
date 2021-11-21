@@ -2,10 +2,11 @@
   <div>
     <!-- 面包屑导航栏 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
+
     <!-- 卡片区域 -->
     <el-card class="box-card">
       <!-- 搜索与添加区域 -->
@@ -73,6 +74,7 @@
         :total="total"
       ></el-pagination>
     </el-card>
+
     <!-- 添加用户的对话框 -->
     <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
       <!-- 内容主体区域 -->
@@ -96,6 +98,7 @@
         <el-button type="primary" @click="addUser">确 定</el-button>
       </span>
     </el-dialog>
+
     <!-- 修改用户的对话框 -->
     <el-dialog @close="editDialogClosed" title="修改用户" :visible.sync="editDialogVisible" width="50%">
       <el-form :model="editForm" ref="editFormRef" label-width="70px" :rules="editFormRules">
@@ -115,6 +118,7 @@
         <el-button type="primary" @click="editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
+
     <!-- 分配角色的对话框 -->
     <el-dialog
       title="分配角色"
@@ -349,15 +353,12 @@ export default {
       if (!this.selectedRoleId) {
         return this.$message.error('请选择要分配的角色！')
       }
-
       const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, {
         rid: this.selectedRoleId
       })
-
       if (res.meta.status !== 200) {
         return this.$message.error('更新角色失败！')
       }
-
       this.$message.success('更新角色成功！')
       this.getUserList()
       this.setRoleDialogVisible = false
