@@ -163,9 +163,10 @@ export default {
     async getCateList() {
       const { data: res } = await this.$http.get('categories', { params: this.queryInfo })
       if (res.meta.status !== 200) return this.$message.error('获取分类列表失败')
+      // console.log(res);
       this.cateList = res.data.result
       this.total = res.data.total
-      console.log(this.cateList)
+      // console.log(this.cateList)
       // console.log(res);
     },
     handleSizeChange(newSize) {
